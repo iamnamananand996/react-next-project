@@ -1,6 +1,9 @@
 // actions.ts
 
-import { User } from './page';
+export type User = {
+  username: string;
+  role: string;
+};
 
 // Action Types
 export const SET_USER_ROLE = 'SET_USER_ROLE';

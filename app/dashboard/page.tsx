@@ -1,11 +1,10 @@
 'use client';
 
 import axios from 'axios';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setUserRole, setUsername, setUser, SET_USER_ROLE } from '../actions';
-import UserState, { UserStateType } from '../reducers';
+import { setUser } from '../actions';
+import { UserStateType } from '../reducers';
 import UserDashboard from '@/components/UserDashboard';
 import AdminDashboard from '@/components/AdminDashboard';
 
@@ -15,16 +14,8 @@ export type User = {
 };
 
 export default function Home() {
-  const [data, setData] = useState<User | null>(null);
-
   const user = useSelector((state: UserStateType) => state.user);
   const dispatch = useDispatch();
-
-  const handleRoleChange = (role: string) => {
-    // dispatch(setUserRole(role));
-
-    dispatch(setUser({ username: user.username, role: role }));
-  };
 
   useEffect(() => {
     axios
@@ -34,8 +25,6 @@ export default function Home() {
         dispatch(setUser(response.data));
       });
   }, []);
-
-  console.log('test data');
 
   if (!user) {
     return 'Loading ...';
@@ -50,29 +39,4 @@ export default function Home() {
       )}
     </div>
   );
-}
-
-{
-  /* <div
-        className={`${
-          user.role === 'user' ? 'bg-white' : 'bg-blue-400 m-5'
-        } shadow-lg rounded-lg h-[400px] w-[400px] text-center`}
-      >
-        <h1>{user.username}</h1>
-        <p>{user.role}</p>
-
-        <button
-          className=''
-          onClick={() => {
-            if (user.role === 'user') {
-              handleRoleChange('admin');
-            }
-            if (user.role === 'admin') {
-              handleRoleChange('user');
-            }
-          }}
-        >
-          Change Role
-        </button>
-      </div> */
 }
