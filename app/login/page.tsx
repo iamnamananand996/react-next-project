@@ -10,7 +10,7 @@ export default function Login() {
           <form>
             <div className='mb-4'>
               <label htmlFor='email' className='block text-gray-700'>
-                Email
+                Email v
               </label>
               <input
                 type='email'
